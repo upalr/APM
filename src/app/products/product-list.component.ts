@@ -11,7 +11,19 @@ export class ProductListComponent implements OnInit {
     imageWidth: number = 50;
     imageMargin: number = 2;
     showImage: boolean = false;
-    listFilter: string = 'carts';
+    //listFilter: string = 'carts';
+    // we can use the event buinding (key presss or value changes)
+    // but the easier way is change 'listFilter' property into a greater or setter 
+     _listFilter: string;
+    get listFilter(): string {
+        return this._listFilter;
+    }
+    set listFilter(value: string){
+        this._listFilter = value;
+        this.filterProducts =  this.listFilter ? this.performFilter(this.listFilter) : this.products;
+    }
+
+    filterProducts: IProduct[]; 
     products: IProduct[] = [  // custome type ar jonno interface use kora hoi
         {
             "productId": 2,
@@ -35,6 +47,18 @@ export class ProductListComponent implements OnInit {
         }
     ];
     
+    constructor(){
+        // the best place to set default values 
+        this.filterProducts = this.products;
+        this.listFilter = 'cart';
+    }
+
+    performFilter(filterBy: string): IProduct[] {
+        filterBy = filterBy.toLowerCase();
+        return  this.products.filter((product: IProduct) => 
+                            product.productName.toLowerCase().indexOf(filterBy) !==-1)
+    } 
+
     toggleImage(): void {
         this.showImage = !this.showImage;
     }
