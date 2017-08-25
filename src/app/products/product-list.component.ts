@@ -14,16 +14,16 @@ export class ProductListComponent implements OnInit {
     //listFilter: string = 'carts';
     // we can use the event buinding (key presss or value changes)
     // but the easier way is change 'listFilter' property into a greater or setter 
-     _listFilter: string;
+    _listFilter: string;
     get listFilter(): string {
         return this._listFilter;
     }
-    set listFilter(value: string){
+    set listFilter(value: string) {
         this._listFilter = value;
-        this.filterProducts =  this.listFilter ? this.performFilter(this.listFilter) : this.products;
+        this.filterProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
     }
 
-    filterProducts: IProduct[]; 
+    filterProducts: IProduct[];
     products: IProduct[] = [  // custome type ar jonno interface use kora hoi
         {
             "productId": 2,
@@ -46,8 +46,8 @@ export class ProductListComponent implements OnInit {
             "imageUrl": "http://openclipart.org/image/300px/svg_to_png/73/rejon_Hammer.png"
         }
     ];
-    
-    constructor(){
+
+    constructor() {
         // the best place to set default values 
         this.filterProducts = this.products;
         this.listFilter = 'cart';
@@ -55,15 +55,19 @@ export class ProductListComponent implements OnInit {
 
     performFilter(filterBy: string): IProduct[] {
         filterBy = filterBy.toLowerCase();
-        return  this.products.filter((product: IProduct) => 
-                            product.productName.toLowerCase().indexOf(filterBy) !==-1)
-    } 
+        return this.products.filter((product: IProduct) =>
+            product.productName.toLowerCase().indexOf(filterBy) !== -1)
+    }
 
     toggleImage(): void {
         this.showImage = !this.showImage;
     }
 
     ngOnInit(): void {
-       console.log('In OnInit');
+        console.log('In OnInit');
+    }
+
+    onRatingClicked(messege: string): void {
+        this.pageTitle = 'Product List: ' + messege;
     }
 }
