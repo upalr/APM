@@ -12,6 +12,7 @@ export class ProductListComponent implements OnInit {
     imageWidth: number = 50;
     imageMargin: number = 2;
     showImage: boolean = false;
+    errorMessage: string;
     //listFilter: string = 'carts';
     // we can use the event buinding (key presss or value changes)
     // but the easier way is change 'listFilter' property into a greater or setter 
@@ -52,8 +53,13 @@ export class ProductListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.products = this._productService.getProducts();
-        this.filterProducts = this.products;
+        //obserable are lazy. doesn't start emmiting value until subcribe is called  
+        this._productService.getProducts()
+            .subscribe(products => {
+                this.products = products
+                this.filterProducts = this.products;
+            },
+            error => this.errorMessage = <any>error);
     }
 
     onRatingClicked(messege: string): void {
