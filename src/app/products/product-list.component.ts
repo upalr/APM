@@ -54,7 +54,6 @@ export class ProductListComponent implements OnInit {
     ngOnInit(): void {
         this.products = this._productService.getProducts();
         this.filterProducts = this.products;
-        console.log('test');
     }
 
     onRatingClicked(messege: string): void {
