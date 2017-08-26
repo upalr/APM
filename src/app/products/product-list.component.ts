@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from './product';
+import { ProductService } from './product.service';
 
 @Component({
     selector: 'pm-products',
@@ -24,33 +25,20 @@ export class ProductListComponent implements OnInit {
     }
 
     filterProducts: IProduct[];
-    products: IProduct[] = [  // custome type ar jonno interface use kora hoi
-        {
-            "productId": 2,
-            "productName": "Garden Cart",
-            "productCode": "GDN-0023",
-            "releaseDate": "March 18, 2016",
-            "description": "15 gallon capacity rolling garden cart",
-            "price": 32.99,
-            "starRating": 4.2,
-            "imageUrl": "http://openclipart.org/image/300px/svg_to_png/58471/garden_cart.png"
-        },
-        {
-            "productId": 5,
-            "productName": "Hammer",
-            "productCode": "TBX-0048",
-            "releaseDate": "May 21, 2016",
-            "description": "Curved claw steel hammer",
-            "price": 8.9,
-            "starRating": 4.8,
-            "imageUrl": "http://openclipart.org/image/300px/svg_to_png/73/rejon_Hammer.png"
-        }
-    ];
+    products: IProduct[] = [];  // custome type ar jonno interface use kora hoi
 
-    constructor() {
-        // the best place to set default values 
-        this.filterProducts = this.products;
-        this.listFilter = 'cart';
+    //Longer syntex
+    //private _productService
+    // constructor(productService: ProductService) {
+    //this._productService = productService;
+    // }
+
+    //shorthand syntex
+    constructor(private _productService: ProductService) {
+        // call when the component is created **Before ngOnInit call**
+        // the best place to set default values (it is primarily used for initialization and not for code that has
+        // sideefects and take times to execute )
+        //look aikhane ami call dite partum product service theke data anar jonno but backend call korar code aikhane likha thik hobe na
     }
 
     performFilter(filterBy: string): IProduct[] {
@@ -64,7 +52,8 @@ export class ProductListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log('In OnInit');
+        this.products = this._productService.getProducts();
+        this.filterProducts = this.products;
     }
 
     onRatingClicked(messege: string): void {
