@@ -1,0 +1,10 @@
+<div class="panel panel-primary" *ngIf='product'>
+  <div class="panel-heading">
+    {{pageTtle + ': '+ product?.productName}}    <!--no need to use ? here 
+      beacause we already use ngif for checking undefined error for product. 
+      
+      "?" is called save navigation operator . return null if find null or undefiend.
+       But not work in ngModel and not good to use for 4 or 5  propertise of same object(in this situation 
+       you can use ngIf like above) -->
+  </div>
+</div>
