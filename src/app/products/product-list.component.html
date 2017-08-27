@@ -6,22 +6,20 @@
         <div class='row'>
             <div class='col-md-2'>Filter by:</div>
             <div class='col-md-4'>
-                <input type='text' [(ngModel)] = 'listFilter'/>
+                <input type='text' [(ngModel)]='listFilter' />
             </div>
         </div>
         <div class='row'>
             <div class='col-md-6'>
-                <h3>Filtered by:  {{listFilter}}</h3>
+                <h3>Filtered by: {{listFilter}}</h3>
             </div>
         </div>
         <div class='table-responsive'>
-            <table class='table'
-                    *ngIf='products && products.length'>
+            <table class='table' *ngIf='products && products.length'>
                 <thead>
                     <tr>
                         <th>
-                            <button class='btn btn-primary'
-                                     (click) = 'toggleImage()'>
+                            <button class='btn btn-primary' (click)='toggleImage()'>
                                {{showImage ? 'Hide' : 'Show'}} Image
                             </button>
                         </th>
@@ -35,25 +33,19 @@
                 <tbody>
                     <tr *ngFor='let product of filterProducts'>
                         <td>
-                            <img *ngIf = 'showImage'
-                                [src]='product.imageUrl'
-                                [title]='product.productName'
-                                [style.width.px]='imageWidth'
-                                [style.margin.px]='imageMargin'>
+                            <img *ngIf='showImage' [src]='product.imageUrl' [title]='product.productName' [style.width.px]='imageWidth' [style.margin.px]='imageMargin'>
                         </td>
                         <td>
-                                <!-- <a [routerLink]="['/products', product.productId]">
+                            <a [routerLink]="['/products', product.productId]">
                                     {{ product.productName }}
-                                </a> -->
-                            {{ product.productName }}
-						</td>
+                                </a>
+                        </td>
                         <td>{{ product.productCode | lowercase | convertToSpaces: '-'}}</td>
                         <td>{{ product.releaseDate }}</td>
                         <td>{{ product.price | currency:'USD':true:'1.2-2'}}</td>
                         <td>
-                            <pm-star [rating]='product.starRating'
-                                (ratingClicked)='onRatingClicked($event)'>
-							</pm-star>
+                            <pm-star [rating]='product.starRating' (ratingClicked)='onRatingClicked($event)'>
+                            </pm-star>
                         </td>
                     </tr>
                 </tbody>
